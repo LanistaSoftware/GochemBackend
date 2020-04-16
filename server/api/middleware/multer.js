@@ -1,9 +1,8 @@
 const multer  = require('multer');
 const path = require('path')
-
 const diskStorageToUploads = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null,"https://test.lanista.com.tr/img")
+        cb(null,path.join(__dirname, "../../../assest/images"))
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname+ '-' + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-'+'.jpg')
