@@ -14,6 +14,18 @@ router.get('/', async (req, res) => {
         })
     }
 })
+router.get('/:id', async (req, res) => {
+    try {
+        const productone = await product.findOne({_id:req.params.id});
+        res.status(200).json({
+            productone
+        });
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+})
 router.post('/',async (req, res) => {
     const addProduct = new product({
         prdoudctName:req.body.prdoudctName,
