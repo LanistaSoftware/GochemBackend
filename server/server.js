@@ -22,6 +22,7 @@ const contactController = require('./api/controller/contactController')
 const loginController = require('./api/controller/loginController')
 const logoController = require('./api/controller/logoController')
 const searchController = require('./api/controller/searchController')
+const documentController = require('./api/controller/documentController')
 const morgan = require('morgan')
 const history = require('connect-history-api-fallback');
 
@@ -75,6 +76,7 @@ app.use('/api/contact',contactController)
 app.use('/api/login',loginController)
 app.use('/api/logo',logoController)
 app.use('/api/search',searchController)
+app.use('/api/document',documentController)
 const port = process.env.PORT || 4000;
 mongoose.connect(connectstr, { useNewUrlParser: true ,useUnifiedTopology: true ,useFindAndModify: false }); 
 const db = mongoose.connection;
@@ -83,7 +85,7 @@ db.once("open", () => console.log("connection to db established"));
 
 app.set('view engine', ['css','icon']);
 
-app.set('views','../src/assets');
+app.set('views','../assets');
 
 app.use(express.static(path.join(__dirname, '../src/assets/upload')));
 
