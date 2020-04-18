@@ -1,6 +1,6 @@
 const exprees = require('express');
 const router = exprees.Router();
-const document = require('../modelS/documentSchema');
+const document = require('../models/documentSchema');
 const multer = require('../middleware/multer')
 router.get('/', async (req, res) => {
     try {
