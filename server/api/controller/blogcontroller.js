@@ -16,6 +16,18 @@ router.get('/', async (req, res) => {
         })
     }
 })
+router.get('/:id', async (req, res) => {
+    try {
+        const blogs = await Blog.find({_id:req.params.id});
+        res.status(200).json({
+            blogs
+        });
+    } catch (error) {
+        res.json({
+            message: error.message
+        })
+    }
+})
 router.delete('/:id', async (req, res) => {
     try {
         const blogs = await Blog.deleteOne({
