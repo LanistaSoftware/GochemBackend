@@ -23,6 +23,7 @@ const loginController = require('./api/controller/loginController')
 const logoController = require('./api/controller/logoController')
 const searchController = require('./api/controller/searchController')
 const documentController = require('./api/controller/documentController')
+const communicationController = require('./api/controller/communicationController')
 const morgan = require('morgan')
 const history = require('connect-history-api-fallback');
 
@@ -78,6 +79,7 @@ app.use('/api/login',loginController)
 app.use('/api/logo',logoController)
 app.use('/api/search',searchController)
 app.use('/api/document',documentController)
+app.use('/api/communication',communicationController)
 const port = process.env.PORT || 4000;
 mongoose.connect(connectstr, { useNewUrlParser: true ,useUnifiedTopology: true ,useFindAndModify: false }); 
 const db = mongoose.connection;
