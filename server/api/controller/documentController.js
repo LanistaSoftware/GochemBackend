@@ -29,7 +29,8 @@ router.get('/:id', async (req, res) => {
 router.post('/',async (req, res) => {
     const adddocument = new document({
        name: req.body.name,
-       path: req.body.path
+       path: req.body.path,
+       imgUrl:req.body.imgUrl
     })
     try {
         adddocument.save()
@@ -43,6 +44,9 @@ router.post('/',async (req, res) => {
     }
 }),
 router.post('/file',multer.saveToUploadsPdf,async(req,res)=>{
+
+})
+router.post('/image',multer.saveToUploadsReference,async(req,res)=>{
 
 })
 router.put('/:id',async (req, res) => {

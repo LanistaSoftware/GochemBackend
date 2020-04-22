@@ -13,6 +13,10 @@ const documentSchema = mongoose.Schema({
     type: Date,
     default: new Date()
   },
+  imgUrl: {
+    type:String,
+    required: false
+  }
 
 });
 const Document = mongoose.model('Document', documentSchema);
