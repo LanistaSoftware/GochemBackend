@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const sectorGalery = mongoose.Schema({
 
-    imgUrl: {
+  imgUrl: {
     type: String,
     required: true,
   },
@@ -11,6 +11,6 @@ const sectorGalery = mongoose.Schema({
     default: new Date()
   },
 });
-const SectorGalery = mongoose.model('SectorGalery', sectorGalery);
+const SectorGalery = mongoose.model('galery', sectorGalery);
 
 module.exports = SectorGalery
