@@ -7,7 +7,7 @@ const diskStorageToUploads = multer.diskStorage({
         cb(null, path.join(__dirname, "../../../assest/images"))
         console.log(file)
         const name = file.originalname + '-'  + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-' + '.jpg'
-        webp.cwebp(`assest/images/${name}`,`build/images/${name}.webp`,"-q 70",function(res,status,error)
+        webp.cwebp(`assest/images/${name}`,`assest/images/${name}.webp`,"-q 70",function(res,status,error)
           {
             console.log(res)
           	 //if conversion successful status will be '100'
