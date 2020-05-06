@@ -8,15 +8,15 @@ const cookieparser = require('cookie-parser');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const connectstr = 'mongodb+srv://lanista:lanista2020@lanistateam-tq8uo.mongodb.net/gochem-app?retryWrites=true&w=majority';
 const mongoose = require('mongoose');
-const userrouter = require('./api/controller/usercontroller')    
+const userrouter = require('./api/controller/usercontroller')
 const blogcontroller = require('./api/controller/blogcontroller')
 const slidecontroller = require('./api/controller/slidersController')
 const videoController = require('./api/controller/videoController')
 const referenceController = require('./api/controller/referenceController')
 const sectorController = require('./api/controller/sectorController')
-const aboutUsController=require('./api/controller/aboutUsController')
+const aboutUsController = require('./api/controller/aboutUsController')
 const productController = require('./api/controller/productController')
-const pigmentController=require('./api/controller/pigmentController')
+const pigmentController = require('./api/controller/pigmentController')
 const employeController = require('./api/controller/employeController')
 const contactController = require('./api/controller/contactController')
 const loginController = require('./api/controller/loginController')
@@ -29,9 +29,9 @@ const morgan = require('morgan')
 const history = require('connect-history-api-fallback');
 
 const staticFileMiddleware = express.static(path.join(__dirname + '/dist'));
-   
+
 app.use(staticFileMiddleware);
-app.use(history({
+app.use(history({  
   disableDotRule: true,
   verbose: true
 }));
@@ -40,11 +40,13 @@ var corsOptions = {
   origin: '*',
   headers: '*',
   optionsSuccessStatus: 200,
-  }
+}
 app.use(bodyParser.urlencoded({
-  extended: false, 
+  extended: false,
 }));
-app.use(bodyParser({limit: '500mb'}));
+app.use(bodyParser({
+  limit: '500mb'
+}));
 
 
 app.use(cookieparser());
@@ -65,32 +67,36 @@ var store = new MongoDBStore({
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-app.use('/api/user',userrouter);
-app.use('/api/blog',blogcontroller);
-app.use('/api/slide',slidecontroller);
-app.use('/api/video',videoController);
-app.use('/api/reference',referenceController);
-app.use('/api/sector',sectorController)
-app.use('/api/aboutUs',aboutUsController)
-app.use('/api/product',productController)
-app.use('/api/pigment',pigmentController)
-app.use('/api/employe',employeController)
-app.use('/api/contact',contactController)
-app.use('/api/login',loginController)
-app.use('/api/logo',logoController)
-app.use('/api/search',searchController)
-app.use('/api/document',documentController)
-app.use('/api/communication',communicationController)
-app.use('/api/galery',galeryController)
+app.use('/api/user', userrouter);
+app.use('/api/blog', blogcontroller);
+app.use('/api/slide', slidecontroller);
+app.use('/api/video', videoController);
+app.use('/api/reference', referenceController);
+app.use('/api/sector', sectorController)
+app.use('/api/aboutUs', aboutUsController)
+app.use('/api/product', productController)
+app.use('/api/pigment', pigmentController)
+app.use('/api/employe', employeController)
+app.use('/api/contact', contactController)
+app.use('/api/login', loginController)
+app.use('/api/logo', logoController)
+app.use('/api/search', searchController)
+app.use('/api/document', documentController)
+app.use('/api/communication', communicationController)
+app.use('/api/galery', galeryController)
 const port = process.env.PORT || 4000;
-mongoose.connect(connectstr, { useNewUrlParser: true ,useUnifiedTopology: true ,useFindAndModify: false }); 
+mongoose.connect(connectstr, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false
+});
 const db = mongoose.connection;
 db.on("error", error => console.log(error));
 db.once("open", () => console.log("connection to db established"));
 
-app.set('view engine', ['css','icon']);
+app.set('view engine', ['css', 'icon']);
 
-app.set('views','../assets');
+app.set('views', '../assets');
 
 app.use(express.static(path.join(__dirname, '../src/assets/upload')));
 

@@ -2,7 +2,7 @@ const exprees = require('express');
 const router = exprees.Router();
 const slider = require('../models/slidersSchema');
 const multer = require('../middleware/multer')
-
+const webp = require('webp-converter')
 router.get('/', async (req, res) => {
     try {
         const sliders = await slider.find({});
@@ -60,16 +60,29 @@ router.post('/active/:id', async (req, res) => {
                 active: true
             }
         })
-
+        // .then((res) => {
+        //     webp.cwebp(`assest/images/${res.SliderOne.imageurlOne}`,`build/images/${res.SliderOne.imageurlOne}.webp`,"-q 70",function(res,status,error)
+        //     {
+        //       console.log(res)
+        //          //if conversion successful status will be '100'
+        //         //if conversion fails status will be '101'
+        //         console.log(status,error);	
+        //     });
+        //   console.log(res)
+        //})
         res.status(200).json({})
     } catch (error) {
         console.log(error)
     }
 })
-router.get('/active/slide', async (req,res) => {
+router.get('/active/slide', async (req, res) => {
     try {
-        const slide = await slider.find({active:true})
-        res.status(200).json({slide})    
+        const slide = await slider.find({
+            active: true
+        })
+        res.status(200).json({
+            slide
+        })
     } catch (error) {
         console.log(error)
     }
