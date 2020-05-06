@@ -54,22 +54,48 @@ router.post('/active/:id', async (req, res) => {
             }
         })
         await slider.findOneAndUpdate({
-            _id: req.params.id
-        }, {
-            $set: {
-                active: true
-            }
-        })
-        // .then((res) => {
-        //     webp.cwebp(`assest/images/${res.SliderOne.imageurlOne}`,`build/images/${res.SliderOne.imageurlOne}.webp`,"-q 70",function(res,status,error)
-        //     {
-        //       console.log(res)
-        //          //if conversion successful status will be '100'
-        //         //if conversion fails status will be '101'
-        //         console.log(status,error);	
-        //     });
-        //   console.log(res)
-        //})
+                _id: req.params.id
+            }, {
+                $set: {
+                    active: true
+                }
+            })
+            .then(async(res) => {
+                console.log(res)
+                webp.cwebp(`assest/images/${res.SliderOne.imageurlOne}`, `assest/images/${res.SliderOne.imageurlOne}.webp`, "-q 70", function (res, status, error) {
+
+                });
+                webp.cwebp(`assest/images/${res.SliderTwo.imageurlTwo}`, `assest/images/${res.SliderTwo.imageurlTwo}.webp`, "-q 70", function (res, status, error) {
+
+
+
+                });
+                webp.cwebp(`assest/images/${res.SliderThree.imageurlThree}`, `assest/images/${res.SliderThree.imageurlThree}.webp`, "-q 70", function (res, status, error) {
+
+
+
+                });
+               await slider.findOneAndUpdate({_id:res._id},{$set : {
+                    SliderOne:{
+                        imageurlOne:res.SliderOne.imageurlOne+'.webp',
+                        titleOne: res.SliderOne.titleOne,
+                        descriptionOne:res.SliderOne.descriptionOne
+                    },
+                    SliderTwo:{
+                        imageurlTwo:res.SliderTwo.imageurlTwo+'.webp',
+                        titleTwo:res.SliderTwo.titleTwo,
+                        descriptionTwo:res.SliderTwo.descriptionTwo
+
+                    },
+                    SliderThree:{
+                        imageurlThree:res.SliderThree.imageurlThree+'.webp',
+                        titleThree: res.SliderThree.titleThree,
+                        descriptionThree:res.SliderThree.descriptionThree
+
+                    }
+                }})
+               
+            })
         res.status(200).json({})
     } catch (error) {
         console.log(error)
