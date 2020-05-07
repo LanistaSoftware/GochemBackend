@@ -60,41 +60,35 @@ router.post('/active/:id', async (req, res) => {
                     active: true
                 }
             })
-            .then(async(res) => {
+            .then(async (res) => {
                 console.log(res)
-                webp.cwebp(`assest/images/${res.SliderOne.imageurlOne}`, `assest/images/${res.SliderOne.imageurlOne}.webp`, "-q 70", function (res, status, error) {
+                webp.cwebp(`assest/images/${res.SliderOne.imageurlOne}`, `assest/images/${res.SliderOne.imageurlOne}.webp`, "-q 70", function (res, status, error) {});
+                webp.cwebp(`assest/images/${res.SliderTwo.imageurlTwo}`, `assest/images/${res.SliderTwo.imageurlTwo}.webp`, "-q 70", function (res, status, error) {});
+                webp.cwebp(`assest/images/${res.SliderThree.imageurlThree}`, `assest/images/${res.SliderThree.imageurlThree}.webp`, "-q 70", function (res, status, error) {});
+                await slider.findOneAndUpdate({
+                    _id: res._id
+                }, {
+                    $set: {
+                        SliderOne: {
+                            imageurlOne: res.SliderOne.imageurlOne + '.webp',
+                            titleOne: res.SliderOne.titleOne,
+                            descriptionOne: res.SliderOne.descriptionOne
+                        },
+                        SliderTwo: {
+                            imageurlTwo: res.SliderTwo.imageurlTwo + '.webp',
+                            titleTwo: res.SliderTwo.titleTwo,
+                            descriptionTwo: res.SliderTwo.descriptionTwo
 
-                });
-                webp.cwebp(`assest/images/${res.SliderTwo.imageurlTwo}`, `assest/images/${res.SliderTwo.imageurlTwo}.webp`, "-q 70", function (res, status, error) {
+                        },
+                        SliderThree: {
+                            imageurlThree: res.SliderThree.imageurlThree + '.webp',
+                            titleThree: res.SliderThree.titleThree,
+                            descriptionThree: res.SliderThree.descriptionThree
 
-
-
-                });
-                webp.cwebp(`assest/images/${res.SliderThree.imageurlThree}`, `assest/images/${res.SliderThree.imageurlThree}.webp`, "-q 70", function (res, status, error) {
-
-
-
-                });
-               await slider.findOneAndUpdate({_id:res._id},{$set : {
-                    SliderOne:{
-                        imageurlOne:res.SliderOne.imageurlOne+'.webp',
-                        titleOne: res.SliderOne.titleOne,
-                        descriptionOne:res.SliderOne.descriptionOne
-                    },
-                    SliderTwo:{
-                        imageurlTwo:res.SliderTwo.imageurlTwo+'.webp',
-                        titleTwo:res.SliderTwo.titleTwo,
-                        descriptionTwo:res.SliderTwo.descriptionTwo
-
-                    },
-                    SliderThree:{
-                        imageurlThree:res.SliderThree.imageurlThree+'.webp',
-                        titleThree: res.SliderThree.titleThree,
-                        descriptionThree:res.SliderThree.descriptionThree
-
+                        }
                     }
-                }})
-               
+                })
+
             })
         res.status(200).json({})
     } catch (error) {

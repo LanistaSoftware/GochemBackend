@@ -3,28 +3,34 @@ const path = require('path')
 const webp = require('webp-converter')
 
 const diskStorageToUploads = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
         cb(null, path.join(__dirname, "../../../assest/images"))
-        console.log(file)
-        const name = file.originalname + '-'  + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-' + '.jpg'
-        webp.cwebp(`assest/images/${name}`,`assest/images/${name}.webp`,"-q 70",function(res,status,error)
-          {
-            console.log(res)
-          	 //if conversion successful status will be '100'
-          	//if conversion fails status will be '101'
-          	console.log(status,error);	
-          });
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
         cb(null, file.originalname + '-' + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-' + '.jpg')
 
     }
 });
+const diskStorageToUploadsReference = multer.diskStorage({
+    destination: (_req, file, cb) => {
+        cb(null, path.join(__dirname, "../../../assest/images"))
+        console.log(file)
+        const name = file.originalname + '-' + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-' + '.jpg'
+        setTimeout(() => {
+            webp.cwebp(`assest/images/${name}`, `assest/images/${name}.webp`, "-q 70", function (_res, _status, _error) {});
+        }, 3000);
+    },
+    filename: (_req, file, cb) => {
+        cb(null, file.originalname + '-' + new Date().getUTCMonth() + '-' + new Date().getUTCDay() + '-' + '.jpg')
+
+    }
+});
+
 const diskStorageToUploadsPdf = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (_req, _file, cb) => {
         cb(null, path.join(__dirname, "../../../assest/file"))
     },
-    filename: (req, file, cb) => {
+    filename: (_req, file, cb) => {
         cb(null, file.originalname)
     }
 });
@@ -32,11 +38,14 @@ const diskStorageToUploadsPdf = multer.diskStorage({
 const saveToUploads = multer({
     storage: diskStorageToUploads
 });
+const saveToUploadsReference = multer({
+    storage: diskStorageToUploadsReference
+});
 const pdfUpload = multer({
     storage: diskStorageToUploadsPdf
 })
 module.exports = {
     saveToUploads: saveToUploads.array('file'),
-    saveToUploadsReference: saveToUploads.single('file'),
+    saveToUploadsReference: saveToUploadsReference.single('file'),
     saveToUploadsPdf: pdfUpload.single('file')
 }

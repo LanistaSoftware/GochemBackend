@@ -97,7 +97,6 @@ router.delete('/:id',async (req,res)=>{
 })
 router.post('/image',multer.saveToUploadsReference,async (req, res) => {
     try {
-    
      res.status(201).json(res)
     } catch (error) {
         res.json({
